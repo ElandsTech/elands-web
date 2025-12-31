@@ -313,6 +313,50 @@
       type="text/css"
       media="all"
     />
+    <style>
+.new-year-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.text-animated {
+  animation: colorChange 4s ease-in-out infinite;
+}
+
+@keyframes colorChange {
+  0%, 100% {
+    color: #FFD700; /* Gold */
+  }
+  25% {
+    color: #87CEEB; /* Sky Blue */
+  }
+  50% {
+    color: #FF6B6B; /* Coral Red */
+  }
+  75% {
+    color: #98D8C8; /* Mint Green */
+  }
+}
+
+.icon {
+  font-size: 1.4rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+</style>
     <!-- Investis Sitecore common GTM -->
     <script>
       (function (w, d, s, l, i) {
@@ -381,20 +425,17 @@
       <div class="header-main-wrapper">
          <div class="header__top withOutUtility
 ">
-    <div class="header__utility pt-xs-1 pb-xs-1 bg-base-1 section-dark ">
-      <div class="container-fluid d-xl-flex d-flex align-items-center justify-content-end gap-sm-2 ">                
-        <div class="secondary-nav">
-          <ul class="d-flex m-0 p-0 gap-sm-3 list-style-none">
-    <li><a class="nav-sm text-decoration-none color-body" href="">Media</a></li>
-    <li><a class="nav-sm text-decoration-none color-body" href="">Careers</a></li>
-    
-    
-    <li><a class="nav-sm text-decoration-none color-body" href="">Contact</a></li>
-</ul>
-        </div>
-        <div class="header__tool body-xs color-body"></div>    
-      </div>    
-    </div>  
+  <div class="header__utility pt-xs-1 pb-xs-1 bg-base-1 section-dark ">
+  <div class="container-fluid d-xl-flex d-flex align-items-center justify-content-end gap-sm-2 ">                
+    <div class="header__tool body-xs color-body">  
+      <p class="nav-sm m-0 new-year-message">
+        <span class="icon">✨</span>
+        <span class="text-animated">Powering your projects into the new year</span>
+        <span class="icon">🎆</span>
+      </p>
+    </div>    
+  </div>    
+</div>
   </div> 
         <div class="position-relative pt-sm-4 pb-sm-4">
           <div class="container-fluid">
