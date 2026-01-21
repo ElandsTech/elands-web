@@ -6,17 +6,17 @@ html {
   font-size: 10px
 }
 body {
-  background-color: var(--base-5);
-  color: var(--base-1);
+  background-color: transparent;
+  color: #ff4500;
   margin: 0;
   padding: 0
 }
 a {
-  color: var(--base-1);
+  color: #ff4500;
   transition: color .25s
 }
 .section-dark a{
-color:var(--base-5)
+color: #ff4500
 }
 a:hover {
   color: var(--base-2)
