@@ -366,6 +366,11 @@
     opacity: 0.8;
   }
 }
+ .footer-container {
+        transition:
+          mask-image 0.1s ease-out,
+          -webkit-mask-image 0.1s ease-out;
+      }
 </style>
     <!-- Investis Sitecore common GTM -->
     <script>
@@ -3612,7 +3617,14 @@ Our expertise spans mechanical and electrical systems, boilermaking, welding, an
       class="standard-footer pt-lg-1 pb-lg-1 bg-base-1 clearfix section-dark theme-base-5"
     >
       <div class="standard-footer__wrapper pb-lg-4">
+         <div
+              style="mask-image: radial-gradient(circle at 1004px -170.984px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)"
+              class="footer-container"
+            >
+              <img src="/grey-logo.png" alt="" style="width: 100%; height: auto;" />
+            </div>
         <div class="container-fluid">
+         
           <div class="row row-gap-lg-3 justify-content-between">
             <div class="col-12 col-xl-8">
               <div class="row row-gap-md-3">
@@ -3940,5 +3952,27 @@ Our expertise spans mechanical and electrical systems, boilermaking, welding, an
       type="text/javascript"
       src="/javascripts/ResourceHandlermerge.js?js=allMinifyItems&amp;sc_lang=en&amp;revision=69c11b7a-b51e-40bb-9625-1d37d6e617bc"
     ></script>
+    <script>
+      // Dynamic mask-image following mouse position
+      const footerContainer = document.querySelector('.footer-container');
+
+      if (footerContainer) {
+        footerContainer.addEventListener('mousemove', function (e) {
+          const rect = footerContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          footerContainer.style.maskImage = `radial-gradient(circle at ${x}px ${y}px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)`;
+          footerContainer.style.webkitMaskImage = `radial-gradient(circle at ${x}px ${y}px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)`;
+        });
+
+        footerContainer.addEventListener('mouseleave', function () {
+          footerContainer.style.maskImage =
+            'radial-gradient(circle at 1004px -170.984px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)';
+          footerContainer.style.webkitMaskImage =
+            'radial-gradient(circle at 1004px -170.984px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)';
+        });
+      }
+    </script>
   </body>
 </html>
