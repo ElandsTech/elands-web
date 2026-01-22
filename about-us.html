@@ -217,7 +217,13 @@
       rel="stylesheet"
     />
     
-  
+   <style>
+     .footer-container {
+        transition:
+          mask-image 0.1s ease-out,
+          -webkit-mask-image 0.1s ease-out;
+      }
+   </style>
     <script type="text/javascript">
       function OptanonWrapper() {}
     </script>
@@ -1570,24 +1576,14 @@
         data-component-animation
       >
         <div
-          class="full-width-banner__image-wrapper overflow-hidden z-0 w-100 h-100 bg-overlay"
+          class="full-width-banner__image-wrapper overflow-hidden  "
           data-animate
         >
-          <picture>
-            <source
-              data-srcset="/~/media/Images/D/debeers-v2/banners/page-banners/about-us/about-us-banner.webp?w=1600"
-              media="(min-width: 992px)"
-            />
-            <source
-              data-srcset="/~/media/Images/D/debeers-v2/banners/page-banners/about-us/about-us-banner.webp?w=800"
-              media="(min-width: 767px)"
-            />
-            <img
-              class="full-width-banner__image w-100 h-100 object-fit-cover lazy"
-              data-src="/~/media/Images/D/debeers-v2/banners/page-banners/about-us/about-us-banner.webp?w=500"
-              alt="Banner image"
-            />
-          </picture>
+          <div style="mask-image: radial-gradient(circle at 1004px -170.984px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%); padding-top: 100px;"
+              class="footer-container z-0 w-100 h-100 bg-overlay"
+            >
+              <img src="/grey-logo.png" alt="" style="width: 100%; height: auto;" />
+            </div>
           <noscript>
             <img
               class="full-width-banner__image w-100 h-100 object-fit-cover"
@@ -1889,24 +1885,20 @@
                         <div
                           class="config-text__content-wrapper w-100 d-flex flex-column gap-sm-1 mt-md-4"
                         >
-                          <!--<div
+                          <div
                             class="config-text__content color-body mb-0 rte text-body body-md"
                             data-animate
                           >
                             <p>
-                              Our diamonds can do more than bring beauty to the
-                              world through their sparkle. As we uncover their
-                              brilliance, we know our diamonds can also create a
-                              positive impact on the people and places involved.
+                             At Elandstech, our purpose is to deliver reliable, high-quality engineering solutions that keep our clients’ operations safe, efficient, and productive. We are driven by a commitment to craftsmanship, technical excellence, and integrity in everything we do.
                             </p>
                             <p>
-                              That&rsquo;s why at Elands Tech our purpose is
-                              to Make Life Brilliant.
+                             Our team values safety above all else, takes pride in doing the job right the first time, and builds strong, long-term relationships through honesty, accountability, and respect. By combining skilled workmanship with practical innovation, we aim to add real value to every project and contribute positively to the industries and communities we serve.
                             </p>
                             <p>
                               Our values help guide the way we live and work.
                             </p>
-                          </div>-->
+                          </div>
                         </div>
                         <div
                           class="config-text__cta-wrapper d-flex flex-wrap flex-column flex-md-row gap-sm-2 mt-sm-2 justify-content-start"
@@ -3129,5 +3121,27 @@
       type="text/javascript"
       src="/javascripts/ResourceHandlermerge.js?js=allMinifyItems&amp;sc_lang=en&amp;revision=69c11b7a-b51e-40bb-9625-1d37d6e617bc"
     ></script>
+     <script>
+      // Dynamic mask-image following mouse position
+      const footerContainer = document.querySelector('.footer-container');
+
+      if (footerContainer) {
+        footerContainer.addEventListener('mousemove', function (e) {
+          const rect = footerContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          footerContainer.style.maskImage = `radial-gradient(circle at ${x}px ${y}px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)`;
+          footerContainer.style.webkitMaskImage = `radial-gradient(circle at ${x}px ${y}px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)`;
+        });
+
+        footerContainer.addEventListener('mouseleave', function () {
+          footerContainer.style.maskImage =
+            'radial-gradient(circle at 1004px -170.984px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)';
+          footerContainer.style.webkitMaskImage =
+            'radial-gradient(circle at 1004px -170.984px, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0) 60%)';
+        });
+      }
+    </script>
   </body>
 </html>
