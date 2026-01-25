@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letterhead</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0e0e0;
+        }
+        
+        .page-wrapper {
+            max-height: 100vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .toolbar {
+            max-width: 210mm;
+            margin: 0 auto 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            position: sticky;
+            top: 0;
+            background-color: #e0e0e0;
+            padding: 10px 0;
+            z-index: 100;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-print {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-pdf {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .btn-email {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .pages-container {
+            max-width: 210mm;
+            margin: 0 auto;
+        }
+        
+        .page {
+            width: 210mm;
+            height: 297mm;
+            background-color: white;
+            padding: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150mm;
+            height: 150mm;
+            background-image: url('https://elandstech.co.za/images/logo/Elands-tech logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .page::after {
+            content: '';
+            position: absolute;
+            left: 15mm;
+            top: 0mm;
+            bottom: 0mm;
+            width: 2px;
+            background-color: rgb(248, 120, 45);
+            z-index: 0;
+            print-color-adjust: exact;
+        }
+        
+        .letterhead,
+        .letter-content,
+        .footer {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .letterhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15mm;
+            padding-bottom: 5mm;
+            
+        }
+        
+        .logo-section {
+            width: 40mm;
+            height: 20mm;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .logo-section img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .center-section {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .right-section {
+            padding-right: 10px;
+            text-align: right;
+            border-right: #d64f00 10px solid;
+        }
+        
+        .contact-line {
+            margin: 3px 0;
+            font-size: 11pt;
+        }
+        
+        .company-name {
+            font-weight: bold;
+            font-size: 11pt;
+            margin-bottom: 3px;
+        }
+        
+        .letter-content {
+            height: 227mm;
+            padding-bottom: 40px;
+            overflow: hidden;
+        }
+        
+        .letter-content-page2 {
+            height: 247mm;
+            padding-top: 40px;
+            overflow: hidden;
+        }
+        
+        .letter-content div,
+        .letter-content-page2 div {
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            outline: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-y: auto;
+        }
+        
+        .letter-content div[contenteditable],
+        .letter-content-page2 div[contenteditable] {
+            padding: 2px;
+        }
+        
+        .letter-content div[contenteditable]:empty:before {
+            content: attr(data-placeholder);
+            color: #999;
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 15mm;
+            left: 20mm;
+            right: 20mm;
+            padding-top: 5mm;
+            border-top: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            font-size: 10pt;
+            background-color: white;
+        }
+        
+        .footer-left {
+            text-align: left;
+        }
+        
+        .footer-right {
+            text-align: right;
+        }
+        
+        .footer-line {
+            margin: 2px 0;
+        }
+        
+        .page-hidden {
+            display: none;
+        }
+        
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+            }
+            
+            body {
+                background-color: white;
+            }
+            
+            .page-wrapper {
+                max-height: none;
+                overflow: visible;
+                padding: 0;
+            }
+            
+            .toolbar {
+                display: none;
+            }
+            
+            .pages-container {
+                max-width: 100%;
+            }
+            
+            .page {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 20mm;
+                box-shadow: none;
+                page-break-after: always;
+                position: relative;
+            }
+            
+            .page-hidden {
+                display: block;
+            }
+            
+            .page:last-child {
+                page-break-after: auto;
+            }
+            
+            .page::before {
+                content: '';
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 150mm;
+                height: 150mm;
+                background-image: url('https://elandstech.co.za/images/logo/Elands-tech logo.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                opacity: 0.03;
+                z-index: 0;
+                pointer-events: none;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            
+            .page::after {
+                content: '';
+                position: fixed;
+                left: 15mm;
+                top: 0mm;
+                bottom: 0mm;
+                width: 2px;
+                background-color: #d64f00;
+                z-index: 0;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .letterhead {
+                page-break-after: avoid;
+            }
+            .letter-content{
+                padding-bottom: 40px;
+            }
+            .letter-content,
+            .letter-content-page2 {
+                overflow: visible;
+            }
+            
+            .letter-content div,
+            .letter-content-page2 div {
+                overflow: visible;
+            }
+            
+            .footer {
+                position: fixed;
+                bottom: 15mm;
+                left: 20mm;
+                right: 20mm;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+                background-color: white;
+            }
+        }
+        
+        @page {
+            size: A4;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="toolbar">
+            <button class="btn btn-print" onclick="printLetter()">
+                🖨️ Print
+            </button>
+            <button class="btn btn-pdf" onclick="savePDF()">
+                📄 Save as PDF
+            </button>
+            <button class="btn btn-email" onclick="emailLetter()">
+                📧 Email
+            </button>
+        </div>
+
+        <div class="pages-container" id="pagesContainer">
+            <div class="page" id="page1">
+                <div class="letterhead">
+                    <div class="logo-section">
+                        <img src="https://elandstech.co.za/images/logo/Elands-tech logo.png" alt="Elands Tech Logo">
+                    </div>
+                    <div class="center-section">
+                        
+                    </div>
+                    <div class="right-section">
+                        <div class="contact-line">Kookrus</div>
+                        <div class="contact-line">Meyerton</div>
+                        <div class="contact-line">Gauteng, 1961</div>
+                    </div>
+                </div>
+                
+                <div class="letter-content">
+                    <div id="letterText" contenteditable="true" data-placeholder="Type your letter here..." oninput="handleInput()" dir="ltr"></div>
+                </div>
+                
+                <div class="footer">
+                    <div class="footer-left">
+                        <div class="footer-line" style="display: flex;">
+                            <div style="width: 20px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                <path d="M31.342 43.173a6.323 6.323 0 0 0 0-8.942l-5.676-5.676a6.323 6.323 0 0 0-8.942 0l.01-.01-2.905 2.905c-16.851 16.851 38.547 72.248 55.398 55.398l2.905-2.905-.01.01a6.323 6.323 0 0 0 0-8.942l-5.676-5.676a6.323 6.323 0 0 0-8.942 0l-2.288 2.288c-1.84 1.84-4.768 1.96-6.78.309-6.94-5.695-13.994-12.749-19.689-19.689-1.651-2.012-1.532-4.939.309-6.78l2.286-2.29z" fill="none" stroke="#323232" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10"/><g>
+                                <path d="M42.035 32.391c13.555 1.022 24.317 12.036 24.932 25.7" fill="none" stroke="#76a4bd" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10"/>
+                                <path d="M78.352 58.092C77.72 38.139 61.88 22.025 42.035 20.977" fill="none" stroke="#76a4bd" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10"/>
+                                <path d="M89.325 58.092C88.684 32.079 67.941 11.063 42.035 10" fill="none" stroke="#76a4bd" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10"/></g>
+                                </svg></div> +27 (0)73 401 2101 | +27 (0)65 901 4276</div>
+                        <div class="footer-line"></div>
+                    </div>
+                    <div class="footer-right">
+                        <div class="footer-line">info@elandstech.co.za</div>
+                        <div class="footer-line">elandstech.co.za</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page page-hidden" id="page2">
+                <div class="letter-content-page2">
+                    <div id="letterText2" contenteditable="true"></div>
+                </div>
+                
+                <div class="footer">
+                    <div class="footer-left">
+                        <div class="footer-line">+27 (0)73 401 2101</div>
+                        <div class="footer-line">+27 (0)65 901 4276</div>
+                    </div>
+                    <div class="footer-right">
+                        <div class="footer-line">info@elandstech.co.za</div>
+                        <div class="footer-line">elandstech.co.za</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let page1Content = document.getElementById('letterText');
+        let page2Content = document.getElementById('letterText2');
+        let page2 = document.getElementById('page2');
+        
+        function handleInput() {
+            const maxHeight = 227 * 3.7795; // 227mm in pixels
+            
+            if (page1Content.scrollHeight > maxHeight) {
+                // Show page 2
+                page2.classList.remove('page-hidden');
+                
+                // Get all text
+                const allText = page1Content.innerText;
+                const lines = allText.split('\n');
+                
+                // Calculate how many lines fit on page 1
+                const tempDiv = document.createElement('div');
+                tempDiv.style.cssText = page1Content.style.cssText;
+                tempDiv.style.position = 'absolute';
+                tempDiv.style.visibility = 'hidden';
+                tempDiv.style.height = 'auto';
+                tempDiv.style.width = page1Content.offsetWidth + 'px';
+                document.body.appendChild(tempDiv);
+                
+                let page1Lines = [];
+                let currentHeight = 0;
+                
+                for (let i = 0; i < lines.length; i++) {
+                    tempDiv.innerText = [...page1Lines, lines[i]].join('\n');
+                    if (tempDiv.offsetHeight > maxHeight - 20) {
+                        break;
+                    }
+                    page1Lines.push(lines[i]);
+                }
+                
+                document.body.removeChild(tempDiv);
+                
+                // Split content
+                const page1Text = page1Lines.join('\n');
+                const page2Text = lines.slice(page1Lines.length).join('\n');
+                
+                // Temporarily disable input handler
+                page1Content.oninput = null;
+                page2Content.oninput = null;
+                
+                page1Content.innerText = page1Text;
+                page2Content.innerText = page2Text;
+                
+                // Re-enable input handler
+                setTimeout(() => {
+                    page1Content.oninput = handleInput;
+                    page2Content.oninput = handleInput;
+                }, 10);
+                
+            } else {
+                // Hide page 2 if content fits on page 1
+                if (page2Content.innerText.trim() === '') {
+                    page2.classList.add('page-hidden');
+                }
+            }
+        }
+        
+        function printLetter() {
+            window.print();
+        }
+        
+        function savePDF() {
+            alert('To save as PDF:\n\n1. Click the Print button\n2. Select "Save as PDF" or "Microsoft Print to PDF" as your printer\n3. Click Save');
+            window.print();
+        }
+        
+        function emailLetter() {
+            const page1Text = document.getElementById('letterText').innerText;
+            const page2Text = document.getElementById('letterText2').innerText;
+            const letterContent = page1Text + '\n' + page2Text;
+            const subject = 'Letter from Elands Tech';
+            const body = encodeURIComponent(letterContent);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+    </script>
+</body>
+</html>
