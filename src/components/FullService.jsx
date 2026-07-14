@@ -1,4 +1,5 @@
 import { Factory, Wrench, PanelTop, Building } from "lucide-react";
+import Slider from "./Slider";
 
 const services = [
   { icon: Factory, title: "Industrial Electrical Installations", desc: "End-to-end electrical installations for industrial sites, from design through commissioning." },
@@ -28,15 +29,18 @@ export default function FullService() {
           </a>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-px bg-white/10">
-          {services.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-navy-deep p-8 hover:bg-navy-mid transition-colors duration-500">
+        <Slider
+          slides={services}
+          dark
+          slideClassName="w-[70%] sm:w-[55%] lg:w-[90%]"
+          renderSlide={({ icon: Icon, title, desc }) => (
+            <div className="bg-navy-mid/40 border border-white/10 p-8 h-full hover:bg-navy-mid transition-colors duration-500">
               <Icon size={20} strokeWidth={1.25} className="text-volt" />
               <h3 className="mt-6 text-white font-serif font-light">{title}</h3>
               <p className="mt-3 text-white/45 text-sm font-light leading-relaxed">{desc}</p>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </div>
     </section>
   );

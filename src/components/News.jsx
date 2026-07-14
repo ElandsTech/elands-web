@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import Slider from "./Slider";
 
 const articles = [
   {
@@ -31,13 +31,15 @@ export default function News() {
             <h2 className="font-serif font-light text-4xl sm:text-5xl text-navy">Recent news &amp; articles</h2>
           </div>
           <a href="#" className="text-navy text-[11px] uppercase tracking-luxe border-b border-navy/30 hover:border-volt pb-1 inline-flex items-center gap-1 transition-colors duration-500">
-            View all <ArrowUpRight size={14} />
+            View all
           </a>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-px bg-navy/10">
-          {articles.map((a) => (
-            <article key={a.title} className="group bg-ivory hover:bg-white transition-colors duration-500">
+        <Slider
+          slides={articles}
+          slideClassName="w-[85%] sm:w-[55%] lg:w-[36%]"
+          renderSlide={(a) => (
+            <article className="group bg-white border border-navy/10 hover:border-volt/40 transition-colors duration-500 h-full">
               <div className="h-44 bg-navy-deep relative overflow-hidden">
                 <span className="absolute top-5 left-5 text-[10px] uppercase tracking-widest text-volt border border-volt/40 px-2.5 py-1">
                   {a.tag}
@@ -51,8 +53,8 @@ export default function News() {
                 <p className="mt-3 text-slate-text text-sm font-light leading-relaxed">{a.excerpt}</p>
               </div>
             </article>
-          ))}
-        </div>
+          )}
+        />
       </div>
     </section>
   );

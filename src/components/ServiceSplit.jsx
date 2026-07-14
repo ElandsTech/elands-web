@@ -1,4 +1,5 @@
 import { Factory, Wrench, ArrowRight } from "lucide-react";
+import Slider from "./Slider";
 
 const cards = [
   {
@@ -30,9 +31,11 @@ export default function ServiceSplit() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-px bg-navy/10">
-          {cards.map(({ icon: Icon, title, desc, items }) => (
-            <div key={title} className="group bg-ivory p-12 hover:bg-white transition-colors duration-500">
+        <Slider
+          slides={cards}
+          slideClassName="w-[88%] sm:w-[60%] lg:w-[48%]"
+          renderSlide={({ icon: Icon, title, desc, items }) => (
+            <div className="group bg-white border border-navy/10 p-12 h-full hover:border-volt/40 transition-colors duration-500">
               <Icon size={24} className="text-volt" strokeWidth={1.25} />
               <h3 className="mt-8 text-2xl font-serif font-light text-navy">{title}</h3>
               <p className="mt-4 text-slate-text font-light leading-relaxed">{desc}</p>
@@ -43,13 +46,16 @@ export default function ServiceSplit() {
                   </li>
                 ))}
               </ul>
-              <a href="#contact" className="mt-10 inline-flex items-center gap-2 text-[11px] uppercase tracking-luxe text-navy border-b border-navy/30 group-hover:border-volt pb-1 transition-colors duration-500">
+              <a
+                href="#contact"
+                className="mt-10 inline-flex items-center gap-2 text-[11px] uppercase tracking-luxe text-navy border-b border-navy/30 group-hover:border-volt pb-1 transition-colors duration-500"
+              >
                 Learn more
                 <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform duration-500" />
               </a>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </div>
     </section>
   );

@@ -4,7 +4,7 @@ import logo from "../assets/logo/logo-dark.png"
 
 const links = [
   { label: "Our Services", href: "#services" },
-  { label: "EV Chargers", href: "#services" },
+  { label: "Electrical Engineering", href: "#services" },
   { label: "Reviews", href: "#reviews" },
   { label: "Blog", href: "#news" },
   { label: "Contact", href: "#contact" },
