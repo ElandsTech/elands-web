@@ -8,6 +8,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -16,8 +17,16 @@ body {
   color: #0C2C46;
   background: #F6F8F7;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
+#root {
+  overflow-x: hidden;
+}
 h1, h2, h3, h4 {
   font-family: 'Space Grotesk', sans-serif;
 }

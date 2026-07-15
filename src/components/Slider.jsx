@@ -54,7 +54,7 @@ export default function Slider({
       <div
         ref={trackRef}
         onScroll={handleScroll}
-        className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-6 pb-2 -mx-8 px-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 sm:gap-6 pb-2 -mx-6 sm:-mx-8 px-6 sm:px-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       >
         {slides.map((slide, i) => (
           <div key={i} className={`snap-start shrink-0 ${slideClassName}`}>
@@ -63,8 +63,8 @@ export default function Slider({
         ))}
       </div>
 
-      <div className="flex items-center justify-between mt-10">
-        <div className="flex gap-2">
+      <div className="flex items-center justify-between mt-8 sm:mt-10 gap-4">
+        <div className="flex flex-wrap gap-2">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -79,28 +79,30 @@ export default function Slider({
           ))}
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3 shrink-0">
           <button
             onClick={prev}
             aria-label="Previous slide"
-            className={`w-11 h-11 rounded-full border grid place-items-center transition-colors duration-500 ${
+            className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full border grid place-items-center transition-colors duration-500 ${
               dark
                 ? "border-white/25 text-white hover:border-volt"
                 : "border-navy/20 text-navy hover:border-volt"
             }`}
           >
-            <ChevronLeft size={17} />
+            <ChevronLeft size={16} className="sm:hidden" />
+            <ChevronLeft size={17} className="hidden sm:block" />
           </button>
           <button
             onClick={next}
             aria-label="Next slide"
-            className={`w-11 h-11 rounded-full border grid place-items-center transition-colors duration-500 ${
+            className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full border grid place-items-center transition-colors duration-500 ${
               dark
                 ? "border-white/25 text-white hover:border-volt"
                 : "border-navy/20 text-navy hover:border-volt"
             }`}
           >
-            <ChevronRight size={17} />
+            <ChevronRight size={16} className="sm:hidden" />
+            <ChevronRight size={17} className="hidden sm:block" />
           </button>
         </div>
       </div>
